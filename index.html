@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahmot Ullah | Professional Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #d4a017;
+            --bg-color: #ffffff;
+            --text-color: #1a202c;
+            --card-bg: #f7fafc;
+            --border-color: #e2e8f0;
+            --secondary-text: #4a5568;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --secondary-text: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            cursor: pointer;
+            background: var(--primary-color);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--primary-color);
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .hero h1 { font-size: 3.5rem; color: var(--primary-color); margin-bottom: 10px; }
+        .hero p { font-size: 1.2rem; color: var(--secondary-text); margin-bottom: 20px; }
+
+        .contact-info {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .contact-info a { color: var(--text-color); text-decoration: none; font-size: 0.9rem; }
+        .contact-info i { color: var(--primary-color); margin-right: 5px; }
+
+        section { padding: 80px 0; border-bottom: 1px solid var(--border-color); }
+        h2 { font-size: 2rem; margin-bottom: 40px; text-transform: uppercase; border-left: 5px solid var(--primary-color); padding-left: 15px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); }
+
+        .skills-container { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-tag { background: var(--primary-color); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; }
+
+        .thesis-box { background: var(--primary-color); color: white; padding: 40px; border-radius: 15px; margin-top: 20px; }
+        .thesis-box h3 { margin-bottom: 15px; }
+
+        footer { text-align: center; padding: 40px 0; color: var(--secondary-text); font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+        }
+        
+.floating-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 15px;
+    z-index: 1001;
+}
+
+.theme-switch {
+    position: static !important;
+}
+
+.qa-switch {
+    background: var(--primary-color);
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+.chat-window {
+    position: fixed;
+    bottom: 85px;
+    right: 20px;
+    width: 350px;
+    max-height: 500px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    z-index: 1000;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    animation: chatOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes chatOpen {
+    from { transform: scale(0.8) translateY(50px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.chat-header {
+    background: linear-gradient(135deg, var(--primary-color), #b8860b);
+    color: white;
+    padding: 20px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-search {
+    padding: 10px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+.chat-search input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-color);
+    outline: none;
+}
+
+.chat-body {
+    padding: 15px;
+    overflow-y: auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scrollbar-width: thin;
+}
+
+.msg { 
+    padding: 10px 15px; 
+    border-radius: 15px; 
+    max-width: 85%; 
+    font-size: 0.9rem;
+    line-height: 1.4;
+    animation: msgFade 0.3s ease;
+}
+@keyframes msgFade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+.bot-msg { background: var(--border-color); align-self: flex-start; border-bottom-left-radius: 2px; }
+.user-msg { background: var(--primary-color); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+
+.chat-options {
+    padding: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.02);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.qa-btn {
+    background: var(--bg-color);
+    border: 1px solid var(--primary-color);
+    color: var(--text-color);
+    padding: 6px 12px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+.qa-btn:hover { background: var(--primary-color); color: white; }
+
+.typing { font-size: 0.8rem; color: var(--secondary-text); margin-bottom: 10px; display: none; }
+
+
+    </style>
+</head>
+<body>
+
+    <header class="hero container" data-aos="fade-down">
+        <div>
+            <img src="profile.jpg" alt="Rahmot Ullah" class="profile-img">
+            <h1>RAHMOT ULLAH</h1>
+            <p>Entrepreneur | Tech Strategist | BBA Graduate | Interested in supply chain, HR automation and machine learning</p>
+            <div class="contact-info">
+                <a href="tel:+8801639323977"><i class="fas fa-phone"></i> +880 1639-323977</a>
+                <a href="mailto:rahmat.rumon@gmail.com"><i class="fas fa-envelope"></i> rahmat.rumon@gmail.com</a>
+                <a href="https://linkedin.com/in/rahmatrumon" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://www.facebook.com/eRumon.fb" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+    <a href="https://t.me/eRumon" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <section id="about" data-aos="fade-up">
+            <h2>Career Objective</h2>
+            <p style="font-size: 1.1rem;">Dynamic Tech Entrepreneur and BBA graduate with a specialized focus on Business Process Automation and ERP solutions. As the Founder of DotTail Systems, I bridge the gap between business strategy and technical execution. Proven expertise in leveraging Machine Learning and data-driven insights to drive organizational agility and scalable growth.</p>
+        </section>
+
+        <section id="experience" data-aos="fade-up">
+            <h2>Professional Experience</h2>
+            <div class="grid">
+                <div class="card">
+                    <span style="color: var(--primary-color); font-weight: bold;">2026 - Present</span>
+                    <h3>Founder & Director</h3>
+                    <p><em>DotTail Systems | Software firm specializing in custom ERP, website, and mobile application.</em></p>
+                    <ul style="margin-top:10px; padding-left: 20px;">
+                        <li>Spearhead the growth and vision of a technology firm specializing in ERP, POS, and custom software solutions.</li>
+                        <li>Lead the design and deployment of high-performance web and mobile applications (iOS & Android).</li>
+                        <li>Identify operational bottlenecks and implement automated workflows to reduce manual overhead for clients.</li>
+                        <li>Oversee the end-to-end product lifecycle to ensure all technical deliverables align with client objectives.</li>
+                        <li>Provide strategic insights on digital transformation and scalable technology adoption for high-value clients.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <span style="color: var(--primary-color); font-weight: bold;">2025 - Present</span>
+                    <h3>Social Media Analyst</h3>
+                    <p><em>SpaceDust Studio, Khulna</em></p>
+                    <ul style="margin-top:10px; padding-left: 20px;">
+                        <li>Analyzed audience trends and data to drive strategic decisions for ad campaigns and content.</li>
+                        <li>Managed and optimized social media pages, significantly boosting follower growth and engagement.</li>
+                        <li>Partnered with creative and sales teams to align advertising efforts with client goals and brand voice.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <span style="color: var(--primary-color); font-weight: bold;">2024</span>
+                    <h3>Assistant Teacher of ICT</h3>
+                    <p><em>Sunshine Academy, Jamalpur</em></p>
+                    <ul style="margin-top:10px; padding-left: 20px;">
+                        <li>Taught office applications and foundational programming.</li>
+                        <li>Managed computer lab and technical issues.</li>
+                        <li>Simplified complex technical concepts through engaging presentations and regular public speaking.</li>
+                        <li>Collaborated with parents to monitor student progress.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" data-aos="fade-up">
+            <h2>Relevant Skills</h2>
+            <div class="skills-container">
+                <span class="skill-tag">Project Management</span>
+                <span class="skill-tag">Strategic Planning</span>
+                <span class="skill-tag">Client Relationship Management (CRM)</span>
+                <span class="skill-tag">Software Architecture</span>
+                <span class="skill-tag">Machine Learning (Google Cloud Certified)</span>
+                <span class="skill-tag">Market Research</span>
+                <span class="skill-tag">Research & Analysis</span>
+                <span class="skill-tag">Programming</span>
+                <span class="skill-tag">Digital Marketing</span>
+                <span class="skill-tag">B2B Sales Strategy</span>
+                <span class="skill-tag">Database Management</span>
+                <span class="skill-tag">Microsoft Office Suite</span>
+                
+            </div>
+        </section>
+
+        <section id="project" data-aos="zoom-in">
+            <h2>Research & Project</h2>
+            <div class="thesis-box">
+                <h3>The Impact of HR Automation on Business Agility and Innovation in High-Growth Startups</h3>
+                <p>Conducted advanced qualitative and quantitative research focusing on HR technology's role in business strategy. Analyzed the direct impact of automation on enhancing business agility within startup environments.</p>
+            </div>
+        </section>
+
+        <section id="certifications" data-aos="fade-up">
+    <h2>Professional Certifications</h2>
+    <div class="card" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+        <div>
+            <h3>Google Cloud Certified</h3>
+            <p>Professional Machine Learning Engineer</p>
+            <small style="color: var(--secondary-text);">Issued by Google Cloud via Credly</small>
+        </div>
+        <a href="https://www.credly.com/badges/63f0687f-f246-4b38-b313-6b8d5a89ab1c/" 
+           target="_blank" 
+           class="skill-tag" 
+           style="text-decoration: none; background: #1a202c; display: inline-flex; align-items: center; gap: 8px;">
+           Verify Certificate <i class="fas fa-external-link-alt"></i>
+        </a>
+    </div>
+</section>
+
+
+        <section id="education" data-aos="fade-up">
+            <h2>Education</h2>
+            <div class="card">
+                <h3>Bachelors of Business Administration (BBA)</h3>
+                <p><strong>Azteca University, Mexico</strong></p>
+                <p>Major in Business Management</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Rahmot Ullah | All Rights Reserved</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            document.getElementById('theme-icon').className = 'fas fa-sun';
+        }
+        
+const qaData = [
+    { q: "Who is Rahmot Ullah?", a: "I am an Entrepreneur and Tech Strategist with a BBA graduation. I specialize in Business Process Automation, ERP solutions, and Machine Learning." },
+    { q: "What is DotTail Systems?", a: "DotTail Systems is my software firm where we build custom ERP, POS systems, and high-performance mobile applications (iOS & Android)." },
+    { q: "Your bachelor's research topic?", a: "My research was titled: 'The Impact of HR Automation on Business Agility and Innovation in High-Growth Startups'." },
+    { q: "About your ML skills & certification?", a: "I am a Google Cloud Certified Professional Machine Learning Engineer. I specialize in using ML for data-driven business insights." },
+    { q: "How can I contact you?", a: "You can reach me via phone or WhatsApp at +880 1639-323977 or email at rahmat.rumon@gmail.com." },
+    { q: "Give me your LinkedIn profile?", a: "Let's connect! My LinkedIn: https://linkedin.com/in/rahmatrumon" },
+    { q: "What is your Telegram account?", a: "Sure! You can message me directly on Telegram: https://t.me/eRumon" },
+    { q: "Your e-mail address?", a: "My personal email is: rahmat.rumon@gmail.com" },
+    { q: "About your core Technical Skills?", a: "My expertise includes Software Architecture, Machine Learning, CRM, Project Management, and B2B Sales Strategy." },
+    { q: "Your current professional roles?", a: "I am currently the Founder & Director at DotTail Systems and a Social Media Analyst at SpaceDust Studio." },
+    { q: "About your teaching experience?", a: "I served as an Assistant Teacher of ICT at Sunshine Academy, teaching programming and office applications." },
+    { q: "What services do you provide?", a: "I provide strategic consultations on digital transformation, custom software development, and automated workflow implementation." }
+];
+
+function toggleChat() {
+    const chat = document.getElementById('chat-window');
+    chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
+    if(chat.style.display === 'flex') renderOptions(qaData);
+}
+
+function renderOptions(data) {
+    const optionsContainer = document.getElementById('chat-options');
+    optionsContainer.innerHTML = '';
+    data.forEach(item => {
+        const btn = document.createElement('button');
+        btn.className = 'qa-btn';
+        btn.innerText = item.q;
+        btn.onclick = () => askQA(item.q, item.a);
+        optionsContainer.appendChild(btn);
+    });
+}
+
+function filterQuestions() {
+    const searchTerm = document.getElementById('chat-search-input').value.toLowerCase();
+    const filtered = qaData.filter(item => item.q.toLowerCase().includes(searchTerm));
+    renderOptions(filtered);
+}
+
+function askQA(question, answer) {
+    const chatBox = document.getElementById('chat-box');
+    const typing = document.getElementById('typing-indicator');
+    
+    chatBox.innerHTML += `<div class="msg user-msg">${question}</div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    typing.style.display = 'block';
+    
+    setTimeout(() => {
+        typing.style.display = 'none';
+        chatBox.innerHTML += `<div class="msg bot-msg">${answer}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }, 1200);
+}
+
+    </script>
+    <div class="floating-controls">
+    <div class="qa-switch" onclick="toggleChat()">
+        <i class="fas fa-comments"></i>
+    </div>
+    <div class="theme-switch" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="theme-icon"></i>
+    </div>
+</div>
+
+<div class="chat-window" id="chat-window">
+    <div class="chat-header">
+        <div>
+            <i class="fas fa-robot"></i> Rahmot's Assistant
+            <div style="font-size: 0.7rem; font-weight: normal; opacity: 0.8;">Online | Active Now</div>
+        </div>
+        <i class="fas fa-times" onclick="toggleChat()" style="cursor:pointer"></i>
+    </div>
+
+    <div class="chat-search">
+        <input type="text" id="chat-search-input" placeholder="Search questions..." onkeyup="filterQuestions()">
+    </div>
+
+    <div class="chat-body" id="chat-box">
+        <div class="msg bot-msg">Hi! 👋 I'm Rahmot's AI assistant. Pick a question below or search for what you're looking for!</div>
+    </div>
+    
+    <div id="typing-indicator" class="typing" style="margin-left: 15px;">Assistant is typing...</div>
+
+    <div class="chat-options" id="chat-options">
+        </div>
+</div>
+    </div>
+</div>
+</body>
+</html>
